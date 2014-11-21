@@ -12,7 +12,7 @@ use Stringy\Stringy;
  * @package JamesHalsall\Hydrator
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ObjectConstructorFromArrayHydrator extends AbstractObjectFromArrayHydrator
+class ObjectConstructorFromArrayHydrator extends AbstractObjectFromArrayHydrator implements HydratorInterface
 {
     /**
      * Hydrates an object with raw data

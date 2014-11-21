@@ -8,7 +8,7 @@ namespace JamesHalsall\Hydrator;
  * @package JamesHalsall\Hydrator
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
-abstract class AbstractObjectFromArrayHydrator implements HydratorInterface
+abstract class AbstractObjectFromArrayHydrator
 {
     /**
      * Get the hydratable class name

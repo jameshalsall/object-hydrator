@@ -13,7 +13,7 @@ use Symfony\Component\PropertyAccess\PropertyAccessor;
  * @package JamesHalsall\Hydrator
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ObjectSetterFromArrayHydrator extends AbstractObjectFromArrayHydrator
+class ObjectSetterFromArrayHydrator extends AbstractObjectFromArrayHydrator implements HydratorInterface
 {
     /**
      * Hydrates an object with raw data
