@@ -24,9 +24,9 @@ class ObjectConstructorFromArrayHydrator extends AbstractObjectFromArrayHydrator
      */
     public function hydrate($className, array $rawData)
     {
-        $hydatableClass = $this->getHydratableClassName($className, $rawData);
+        $hydratableClass = $this->getHydratableClassName($className, $rawData);
 
-        $reflectionClass = new \ReflectionClass($hydatableClass);
+        $reflectionClass = new \ReflectionClass($hydratableClass);
         $constructorParameters = $reflectionClass->getConstructor()->getParameters();
         $callParameters = array();
 
@@ -41,7 +41,7 @@ class ObjectConstructorFromArrayHydrator extends AbstractObjectFromArrayHydrator
         }
 
         if (count($callParameters) !== count($constructorParameters)) {
-            return new $hydatableClass();
+            return new $hydratableClass();
         }
 
         return $reflectionClass->newInstanceArgs($callParameters);
@@ -62,9 +62,9 @@ class ObjectConstructorFromArrayHydrator extends AbstractObjectFromArrayHydrator
     {
         $hydratedObjects = array();
         foreach ($rawDataCollection as $rawData) {
-            $hydatableClass = $this->getHydratableClassName($className, $rawData);
+            $hydratableClass = $this->getHydratableClassName($className, $rawData);
 
-            $hydratedObjects[] = $this->hydrate($hydatableClass, $rawData);
+            $hydratedObjects[] = $this->hydrate($hydratableClass, $rawData);
         }
 
         return $hydratedObjects;

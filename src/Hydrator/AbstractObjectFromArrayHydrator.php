@@ -21,11 +21,11 @@ abstract class AbstractObjectFromArrayHydrator implements HydratorInterface
     protected function getHydratableClassName($className, $rawData)
     {
         if (is_callable($className)) {
-            $hydatableClass = $className($rawData);
+            $hydratableClass = $className($rawData);
         } else {
-            $hydatableClass = $className;
+            $hydratableClass = $className;
         }
 
-        return $hydatableClass;
+        return $hydratableClass;
     }
 }
