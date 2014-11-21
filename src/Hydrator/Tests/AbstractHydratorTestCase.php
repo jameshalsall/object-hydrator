@@ -47,7 +47,8 @@ class AbstractHydratorTestCase extends \PHPUnit_Framework_TestCase
                 new MockObject($objectRawData['name'], $objectRawData['email_address'], $objectRawData['password']),
                 array_merge($objectRawData, array('something-invalid' => 'value'))
             ),
-            array('JamesHalsall\Hydrator\Tests\Mock\MockObject', new MockObject(), array())
+            array('JamesHalsall\Hydrator\Tests\Mock\MockObject', new MockObject(), array()),
+            array(function () { return 'JamesHalsall\Hydrator\Tests\Mock\MockObject'; }, new MockObject(), array())
         );
     }
 
@@ -79,6 +80,13 @@ class AbstractHydratorTestCase extends \PHPUnit_Framework_TestCase
         return array(
             array(
                 'JamesHalsall\Hydrator\Tests\Mock\MockObject',
+                $rawData,
+                $expectedHydratedObjects
+            ),
+            array(
+                function () {
+                    return 'JamesHalsall\Hydrator\Tests\Mock\MockObject';
+                },
                 $rawData,
                 $expectedHydratedObjects
             )
