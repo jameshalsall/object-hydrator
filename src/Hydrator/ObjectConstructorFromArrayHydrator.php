@@ -12,19 +12,21 @@ use Stringy\Stringy;
  * @package JamesHalsall\Hydrator
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ObjectConstructorFromArrayHydrator implements HydratorInterface
+class ObjectConstructorFromArrayHydrator extends AbstractObjectFromArrayHydrator implements HydratorInterface
 {
     /**
      * Hydrates an object with raw data
      *
-     * @param mixed $className The object to hydrate
-     * @param array $rawData   The raw data to hydrate the data with
+     * @param string|callable $className The object to hydrate
+     * @param array           $rawData   The raw data to hydrate the data with
      *
      * @return mixed
      */
     public function hydrate($className, array $rawData)
     {
-        $reflectionClass = new \ReflectionClass($className);
+        $hydratableClass = $this->getHydratableClassName($className, $rawData);
+
+        $reflectionClass = new \ReflectionClass($hydratableClass);
         $constructorParameters = $reflectionClass->getConstructor()->getParameters();
         $callParameters = array();
 
@@ -39,7 +41,7 @@ class ObjectConstructorFromArrayHydrator implements HydratorInterface
         }
 
         if (count($callParameters) !== count($constructorParameters)) {
-            return new $className();
+            return new $hydratableClass();
         }
 
         return $reflectionClass->newInstanceArgs($callParameters);
@@ -51,8 +53,8 @@ class ObjectConstructorFromArrayHydrator implements HydratorInterface
      * Hydrates an array of models from an array containing multiple arrays
      * of raw data.
      *
-     * @param string $className         The class name of the model to hydrate for each
-     * @param array  $rawDataCollection The raw data collection
+     * @param string|callable $className         The class name of the model to hydrate for each
+     * @param array           $rawDataCollection The raw data collection
      *
      * @return mixed
      */
@@ -60,7 +62,9 @@ class ObjectConstructorFromArrayHydrator implements HydratorInterface
     {
         $hydratedObjects = array();
         foreach ($rawDataCollection as $rawData) {
-            $hydratedObjects[] = $this->hydrate($className, $rawData);
+            $hydratableClass = $this->getHydratableClassName($className, $rawData);
+
+            $hydratedObjects[] = $this->hydrate($hydratableClass, $rawData);
         }
 
         return $hydratedObjects;

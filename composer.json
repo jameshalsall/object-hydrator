@@ -8,7 +8,8 @@
     },
     "require": {
         "danielstjules/stringy": "~1.6",
-        "symfony/property-access": "~2.5"
+        "symfony/property-access": "~2.5",
+        "php": ">=5.4"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.2",
