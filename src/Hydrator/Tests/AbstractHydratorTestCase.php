@@ -22,11 +22,14 @@ class AbstractHydratorTestCase extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider getHydrateFixtures
      */
-    public function testHydrate($className, $expectedHydratedObject, array $rawData)
+    public function testHydrate($className, MockObject $expectedHydratedObject, array $rawData)
     {
         $hydratedObject = $this->sut->hydrate($className, $rawData);
 
         $this->assertEquals($expectedHydratedObject, $hydratedObject);
+        $this->assertSame($expectedHydratedObject->getName(), $hydratedObject->getName());
+        $this->assertSame($expectedHydratedObject->getEmailAddress(), $hydratedObject->getEmailAddress());
+        $this->assertSame($expectedHydratedObject->getPassword(), $hydratedObject->getPassword());
     }
 
     /**
@@ -47,7 +50,12 @@ class AbstractHydratorTestCase extends \PHPUnit_Framework_TestCase
                 new MockObject($objectRawData['name'], $objectRawData['email_address'], $objectRawData['password']),
                 array_merge($objectRawData, array('something-invalid' => 'value'))
             ),
-            array('JamesHalsall\Hydrator\Tests\Mock\MockObject', new MockObject(), array())
+            array('JamesHalsall\Hydrator\Tests\Mock\MockObject', new MockObject(), array()),
+            array(
+                'JamesHalsall\Hydrator\Tests\Mock\MockObject',
+                new MockObject(null, null, null),
+                array('name' => null, 'email_address' => null, 'password' => null)
+            )
         );
     }
 

@@ -31,7 +31,7 @@ class ObjectConstructorFromArrayHydrator implements HydratorInterface
         /** @var \ReflectionParameter $parameter */
         foreach ($constructorParameters as $parameter) {
             foreach ($this->getPossibleParameterKeys($parameter) as $possibleKey) {
-                if (true === isset($rawData[$possibleKey])) {
+                if (true === array_key_exists($possibleKey, $rawData)) {
                     $callParameters[] = $rawData[$possibleKey];
                     break;
                 }
