@@ -55,7 +55,9 @@ class AbstractHydratorTestCase extends \PHPUnit_Framework_TestCase
                 'JamesHalsall\Hydrator\Tests\Mock\MockObject',
                 new MockObject(null, null, null),
                 array('name' => null, 'email_address' => null, 'password' => null)
-            )
+            ),
+            array(function () { return 'JamesHalsall\Hydrator\Tests\Mock\MockObject'; }, new MockObject(), array()),
+            array(array($this, 'getMockClassName'), new MockObject(), array())
         );
     }
 
@@ -89,6 +91,18 @@ class AbstractHydratorTestCase extends \PHPUnit_Framework_TestCase
                 'JamesHalsall\Hydrator\Tests\Mock\MockObject',
                 $rawData,
                 $expectedHydratedObjects
+            ),
+            array(
+                function () {
+                    return 'JamesHalsall\Hydrator\Tests\Mock\MockObject';
+                },
+                $rawData,
+                $expectedHydratedObjects
+            ),
+            array(
+                array($this, 'getMockClassName'),
+                $rawData,
+                $expectedHydratedObjects
             )
         );
     }
@@ -102,5 +116,17 @@ class AbstractHydratorTestCase extends \PHPUnit_Framework_TestCase
         $objectRawData = array('email_address' => $faker->email, 'name' => $faker->name, 'password' => $faker->md5);
 
         return $objectRawData;
+    }
+
+    /**
+     * Get the mock class name
+     *
+     * This must be public to give it visibility to the hydrator classes
+     *
+     * @return string
+     */
+    public function getMockClassName()
+    {
+        return 'JamesHalsall\Hydrator\Tests\Mock\MockObject';
     }
 }

@@ -16,8 +16,8 @@ interface HydratorInterface
     /**
      * Hydrates an object with raw data
      *
-     * @param mixed $className The class name of the object to hydrate
-     * @param array $rawData   The raw data to hydrate the data with
+     * @param string|callable $className The class name of the object to hydrate
+     * @param array           $rawData   The raw data to hydrate the data with
      *
      * @return mixed
      */
@@ -27,8 +27,8 @@ interface HydratorInterface
      * Hydrates an array of objects from an array containing multiple arrays
      * of raw data.
      *
-     * @param string $className         The class name of the model to hydrate for each
-     * @param array  $rawDataCollection The collection of raw data for the models
+     * @param string|callable $className         The class name of the model to hydrate for each
+     * @param array           $rawDataCollection The collection of raw data for the models
      *
      * @return mixed
      */

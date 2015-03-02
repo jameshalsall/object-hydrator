@@ -13,7 +13,7 @@ use Symfony\Component\PropertyAccess\PropertyAccessor;
  * @package JamesHalsall\Hydrator
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ObjectSetterFromArrayHydrator implements HydratorInterface
+class ObjectSetterFromArrayHydrator extends AbstractObjectFromArrayHydrator implements HydratorInterface
 {
     /**
      * Hydrates an object with raw data
@@ -25,7 +25,9 @@ class ObjectSetterFromArrayHydrator implements HydratorInterface
      */
     public function hydrate($className, array $rawData)
     {
-        $object = new $className();
+        $hydratableClass = $this->getHydratableClassName($className, $rawData);
+
+        $object = new $hydratableClass();
         $propertyAccessor = new PropertyAccessor();
         foreach ($rawData as $property => $value) {
             try {
@@ -54,7 +56,9 @@ class ObjectSetterFromArrayHydrator implements HydratorInterface
     {
         $hydratedObjects = array();
         foreach ($rawDataCollection as $rawData) {
-            $hydratedObjects[] = $this->hydrate($className, $rawData);
+            $hydratableClass = $this->getHydratableClassName($className, $rawData);
+
+            $hydratedObjects[] = $this->hydrate($hydratableClass, $rawData);
         }
 
         return $hydratedObjects;
