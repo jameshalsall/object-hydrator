@@ -19,27 +19,31 @@ If your object uses constructor injection then you can hydrate your objects usin
 
 Example:
 
-    $data = ['name' => 'Frank Turner', 'job_title' => 'Musician'];
-    $hyrdator = new ObjectConstructorFromArrayHydrator();
-    $hydrator->hydrate('Person\Employee', $data);
-    
+```php
+$data = ['name' => 'Frank Turner', 'job_title' => 'Musician'];
+$hyrdator = new ObjectConstructorFromArrayHydrator();
+$person = $hydrator->hydrate('Person\Employee', $data);
+```
+
 The `Person\Employee` class would look as follows:
 
-    <?php
+```php
+<?php
+
+namespace Person;
+
+class Employee
+{
+    private $name;
+    private $jobTitle;
     
-    namespace Person;
-    
-    class Employee
+    public function __construct($name, $jobTitle)
     {
-        private $name;
-        private $jobTitle;
-        
-        public function __construct($name, $jobTitle)
-        {
-            $this->name = $name;
-            $this->jobTitle = $jobTitle;
-        }
+        $this->name = $name;
+        $this->jobTitle = $jobTitle;
     }
+}
+```
 
 ### Setter injection
 
@@ -48,31 +52,46 @@ If your object uses setter injection then you can hydrate your objects using an 
 
 Example:
 
-    $data = ['name' => 'Frank Turner', 'job_title' => 'Musician'];
-    $hyrdator = new ObjectSetterFromArrayHydrator();
-    $hydrator->hydrate('Fully\Qualified\Class\Name\To\Hydrator', $data);
-    
+```php
+$data = ['name' => 'Frank Turner', 'job_title' => 'Musician'];
+$hyrdator = new ObjectSetterFromArrayHydrator();
+$person = $hydrator->hydrate('Person\Employee', $data);
+```
+
 The `Person\Employee` class would look as follows:
 
-    <?php
+```php
+<?php
+
+namespace Person;
+
+class Employee
+{
+    private $name;
+    private $jobTitle;
     
-    namespace Person;
-    
-    class Employee
+    public function setName($name)
     {
-        private $name;
-        private $jobTitle;
-        
-        public function setName($name)
-        {
-            $this->name = $name;
-        }
-        
-        public function setJobTitle($jobTitle)
-        {
-            $this->jobTitle = $jobTitle;
-        }
+        $this->name = $name;
     }
+    
+    public function setJobTitle($jobTitle)
+    {
+        $this->jobTitle = $jobTitle;
+    }
+}
+```
+
+### Hydrating collections
+
+Sometimes you may have an array of arrays, each representing a model's raw data. You can hydrate these in one
+method call, for example:
+
+```php
+$data = [['name' => 'Frank Turner', 'job_title' => 'Musician'], ['name' => 'Steve Jobs', 'job_title' => 'CEO']];
+$hydrator = new ObjectSetterFromArrayHydrator();
+$hydratedObjects = $hydrator->hydrateCollection('Person\Employee', $data);
+```
 
 ## Roadmap
 
