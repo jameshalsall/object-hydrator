@@ -21,6 +21,3 @@ notifications:
   email:
     - james.t.halsall@googlemail.com
 
-branches:
-  only:
-    - master
