@@ -6,6 +6,11 @@
             "JamesHalsall\\": "src"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "JamesHalsall\\Hydrator\\Tests\\": "tests"
+        }
+    },
     "require": {
         "php": ">=5.4",
         "danielstjules/stringy": "^1.6",
