@@ -97,7 +97,7 @@ $hydratedObjects = $hydrator->hydrateCollection('Person\Employee', $data);
 
 When hydrating an object the first argument that you pass to the `hydrate` or `hydrateCollection` method is the fully
 qualified class name (FQCN) that you wish to create an instance of. Instead of a FQCN you can pass a callable. The
-callable will receive the raw data (`$data`) that you pass as the second argument.s
+callable will receive the raw data (`$data`) that you pass as the second argument.
 
 Example:
 
