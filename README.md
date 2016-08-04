@@ -93,7 +93,28 @@ $hydrator = new ObjectSetterFromArrayHydrator();
 $hydratedObjects = $hydrator->hydrateCollection('Person\Employee', $data);
 ```
 
+### Callable class names
+
+When hydrating an object the first argument that you pass to the `hydrate` or `hydrateCollection` method is the fully
+qualified class name (FQCN) that you wish to create an instance of. Instead of a FQCN you can pass a callable. The
+callable will receive the raw data (`$data`) that you pass as the second argument.s
+
+Example:
+
+```php
+$data = ['name' => 'Frank Turner', 'job_title' => 'Musician'];
+$hydrator = new ObjectConstructorFromArrayHydrator();
+$person = $hydrator->hydrate(function ($rawData) {
+    if ($rawData['job_title' === 'Musician']) {
+        return 'Person\Musician';
+    }
+
+    return 'Person\Employee';
+}, $data);
+```
+
 ## Roadmap
 
 * Add factory to improve readability of instantiating hydrators
 * Explore option of adding support for the hydration of nested objects
+* Allow instances of objects to be passed to the hydrator instead of class names
