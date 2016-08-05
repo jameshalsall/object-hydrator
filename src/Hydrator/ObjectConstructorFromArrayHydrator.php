@@ -17,14 +17,14 @@ class ObjectConstructorFromArrayHydrator extends AbstractObjectFromArrayHydrator
     /**
      * Hydrates an object with raw data
      *
-     * @param string|callable $className The object to hydrate
+     * @param string|callable $class The object to hydrate
      * @param array           $rawData   The raw data to hydrate the data with
      *
      * @return mixed
      */
-    public function hydrate($className, array $rawData)
+    public function hydrate($class, array $rawData)
     {
-        $hydratableClass = $this->getHydratableClassName($className, $rawData);
+        $hydratableClass = $this->getHydratableClassName($class, $rawData);
 
         $reflectionClass = new \ReflectionClass($hydratableClass);
         $constructorParameters = $reflectionClass->getConstructor()->getParameters();

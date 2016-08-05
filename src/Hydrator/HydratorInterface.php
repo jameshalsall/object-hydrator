@@ -16,12 +16,12 @@ interface HydratorInterface
     /**
      * Hydrates an object with raw data
      *
-     * @param string|callable $className The class name of the object to hydrate
+     * @param string|callable $class The class name of the object to hydrate
      * @param array           $rawData   The raw data to hydrate the data with
      *
      * @return mixed
      */
-    public function hydrate($className, array $rawData);
+    public function hydrate($class, array $rawData);
 
     /**
      * Hydrates an array of objects from an array containing multiple arrays

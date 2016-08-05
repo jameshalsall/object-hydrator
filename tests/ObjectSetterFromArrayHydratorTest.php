@@ -3,6 +3,7 @@
 namespace JamesHalsall\Hydrator\Tests;
 
 use JamesHalsall\Hydrator\ObjectSetterFromArrayHydrator;
+use JamesHalsall\Hydrator\Tests\Mock\MockObject;
 
 /**
  * ObjectSetterFromArrayHydrator tests
@@ -18,5 +19,26 @@ class ObjectSetterFromArrayHydratorTest extends AbstractHydratorTestCase
     public function setUp()
     {
         $this->sut = new ObjectSetterFromArrayHydrator();
+    }
+
+    /**
+     * @dataProvider getExistingObjectFixtures
+     */
+    public function testHydrateExistingObject(MockObject $object, MockObject $expectedHydratedObject, array $rawData)
+    {
+        $hydratedObject= $this->sut->hydrate($object, $rawData);
+
+        $this->assertEquals($expectedHydratedObject, $hydratedObject);
+    }
+
+    public function getExistingObjectFixtures()
+    {
+        return [
+            [
+                new MockObject('name'),
+                new MockObject('name', 'email', 'password'),
+                ['email_address' => 'email', 'password' => 'password']
+            ]
+        ];
     }
 }

@@ -18,16 +18,20 @@ class ObjectSetterFromArrayHydrator extends AbstractObjectFromArrayHydrator impl
     /**
      * Hydrates an object with raw data
      *
-     * @param mixed $className The class name of the object to hydrate
+     * @param mixed $class The class name of the object to hydrate
      * @param array $rawData   The raw data to hydrate the data with
      *
      * @return mixed
      */
-    public function hydrate($className, array $rawData)
+    public function hydrate($class, array $rawData)
     {
-        $hydratableClass = $this->getHydratableClassName($className, $rawData);
+        if (is_callable($class) || is_string($class)) {
+            $hydratableClass = $this->getHydratableClassName($class, $rawData);
+            $object = new $hydratableClass();
+        } else {
+            $object = $class;
+        }
 
-        $object = new $hydratableClass();
         $propertyAccessor = new PropertyAccessor();
         foreach ($rawData as $property => $value) {
             try {

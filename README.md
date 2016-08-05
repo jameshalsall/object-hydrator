@@ -12,7 +12,7 @@ that data.
 There are two main types of hydrator provided, the `ObjectConstructorFromArrayHydrator` and the 
 `ObjectSetterFromArrayHydrator` allowing you to hydrate via a constructor or via setters, respectively.
 
-### Constructor injection
+### Constructor hydration
 
 If your object uses constructor injection then you can hydrate your objects using an instance of 
 `ObjectConstructorFromArrayHydrator`.
@@ -45,7 +45,7 @@ class Employee
 }
 ```
 
-### Setter injection
+### Setter hydration
 
 If your object uses setter injection then you can hydrate your objects using an instance of 
 `ObjectSetterFromArrayHydrator`.
@@ -80,6 +80,15 @@ class Employee
         $this->jobTitle = $jobTitle;
     }
 }
+```
+
+With the setter hydrator you can pass existing objects to the hydrator as well, rather than class names:
+
+```php
+$data = ['name' => 'Frank Turner', 'job_title' => 'Musician'];
+$hydrator = new ObjectSetterFromArrayHydrator();
+$person = new Person();
+$hydrator->hydrate($person, $data);
 ```
 
 ### Hydrating collections
@@ -117,4 +126,4 @@ $person = $hydrator->hydrate(function ($rawData) {
 
 * Add factory to improve readability of instantiating hydrators
 * Explore option of adding support for the hydration of nested objects
-* Allow instances of objects to be passed to the hydrator instead of class names
+* ~~Allow instances of objects to be passed to the hydrator instead of class names~~
