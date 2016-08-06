@@ -102,6 +102,9 @@ $hydrator = new ObjectSetterFromArrayHydrator();
 $hydratedObjects = $hydrator->hydrateCollection('Person\Employee', $data);
 ```
 
+NOTE: You **cannot** pass an object to the `hydrateCollection` method, it must be either a callable or a string 
+containing the FQCN.
+
 ### Callable class names
 
 When hydrating an object the first argument that you pass to the `hydrate` or `hydrateCollection` method is the fully
